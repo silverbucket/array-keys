@@ -30,16 +30,16 @@ define(['require', './../array-keys.js'], function (require, ArrayKeysAMD) {
       },
 
       {
-        desc: '# addRecord',
+        desc: '# addRecord 1',
         run: function (env, test) {
-          test.assert(env.ak.addRecord({id:'thingy'}), true);
+          test.assert(env.ak.addRecord({id:'thingy1'}), true);
         }
       },
 
       {
         desc: '# getRecordIFExists',
         run: function (env, test) {
-          test.assert(env.ak.getRecord('thingy'), {id:'thingy'});
+          test.assert(env.ak.getRecord('thingy1'), {id:'thingy1'});
         }
       },
 
@@ -48,7 +48,49 @@ define(['require', './../array-keys.js'], function (require, ArrayKeysAMD) {
         run: function (env, test) {
           test.throws(env.ak.addRecord, Error, 'caught thrown exception');
         }
-      }
+      },
+
+      {
+        desc: '# addRecord 2',
+        run: function (env, test) {
+          test.assert(env.ak.addRecord({id:'thingy2'}), true);
+        }
+      },
+
+      {
+        desc: '# addRecord 3',
+        run: function (env, test) {
+          test.assert(env.ak.addRecord({id:'thingy3'}), true);
+        }
+      },
+
+      {
+        desc: '# getCount (3)',
+        run: function (env, test) {
+          test.assert(env.ak.getCount(), 3);
+        }
+      },
+
+      {
+        desc: '# getIndexes',
+        run: function (env, test) {
+          test.assert(env.ak.getIdentifiers(), ['thingy3', 'thingy2', 'thingy1']);
+        }
+      },
+
+      {
+        desc: '# removeRecord 2',
+        run: function (env, test) {
+          test.assert(env.ak.removeRecord('thingy2'), true);
+        }
+      },
+
+      {
+        desc: '# getCount (2)',
+        run: function (env, test) {
+          test.assert(env.ak.getCount(), 2);
+        }
+      },
     ]
   });
 

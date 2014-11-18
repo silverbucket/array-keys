@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 1.0.0
+ *   version 1.1.0
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -68,6 +68,10 @@
     for (var i = this.idx.length - 1; i >= 0; i--) {
       cb(this.idx[i]);
     }
+  };
+
+  ArrayKeys.prototype.getCount = function () {
+    return this.idx.length;
   };
 
   if (typeof window === 'object') {
