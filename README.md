@@ -1,4 +1,45 @@
-node-array-keys
-===============
+# array-keys
 
-manage array elements using a key instead of array index position, more performant and memory safe than hashes for large changing data-sets.
+Very simple library to manage array elements using a key instead of array index position. When dealing with very large sets of data all organized in an object reference, if the object structure is changing a lot you can end up with memory leaks and slow performance. In these cases it's better to keep an array of objects instead of and object of objects. The cost of iterating through the array is cheaper than the lack of garbage collection which can occur in large, changing, object hashes.
+
+## environments
+
+Should run in both node.js and browser environments.
+
+## basic usage example
+
+```javascript
+var ak = new ArrayKeys({
+    identifier: 'key' // defaults to `id`
+});
+
+ak.getRecord('myInvalidKey'}); // returns undefined
+
+ak.addRecord({
+    key: 'myKey1',
+    value: 'hello world!'
+}); // returns true
+
+ak.getRecord('myKey1'); // returns { key: 'myKey1', value: 'hello world!' }
+
+ak.addRecord({
+    key: 'myKey2',
+    value: 'hello space!'
+}); // returns true
+
+
+ak.forEachRecord(function (record) {
+    // this function is called once for each record
+});
+
+ak.getIdentifiers(); // returns ['myKey1', 'myKey2']
+```
+
+## license
+
+array-keys is licensed under the [LGPL](https://github.com/silverbucket/array-keys/blob/master/LICENSE)
+
+## credits
+
+Project developed and maintained by [Nick Jennings](http://github.com/silverbucket)
+
