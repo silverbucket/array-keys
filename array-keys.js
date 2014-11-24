@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 1.1.0
+ *   version 1.1.1
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -16,8 +16,15 @@
  *
  */
 
+(function (global, factory, undefined) {
 
-(function () {
+  if ( typeof module === 'object' && typeof module.exports === 'object' ) {
+    module.exports = (global.document) ? factory(global) : factory({});
+  } else {
+    factory(global);
+  }
+
+}((typeof window !== 'undefined') ? window : this, function (scope, undefined) {
 
   function ArrayKeys(p) {
     if (typeof p !== 'object') { p = {}; }
@@ -74,14 +81,13 @@
     return this.idx.length;
   };
 
-  if (typeof window === 'object') {
-    window.ArrayKeys = ArrayKeys;
-  } else if (typeof (define) === 'function' && define.amd) {
-    define([], function () { return ArrayKeys; });
-  } else {
-    try {
-      module.exports = ArrayKeys;
-    } catch (e) {}
+
+  if ( typeof define === 'function' && define.amd ) {
+    define([], function() {
+      return ArrayKeys;
+    });
   }
 
-})();
+  scope.ArrayKeys = ArrayKeys;
+  return ArrayKeys;
+}));
