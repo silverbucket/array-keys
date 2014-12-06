@@ -16,78 +16,59 @@
  *
  */
 
-(function (global, factory, undefined) {
+function ArrayKeys(p) {
+  if (typeof p !== 'object') { p = {}; }
+  this.identifier = p.identifier || 'id';
+  this.idx = [];
+}
 
-  if ( typeof module === 'object' && typeof module.exports === 'object' ) {
-    module.exports = (global.document) ? factory(global) : factory({});
-  } else {
-    factory(global);
+ArrayKeys.prototype.getIdentifiers = function () {
+  var ids = [];
+  for (var i = this.idx.length - 1; i >= 0; i--) {
+    ids.push(this.idx[i][this.identifier]);
   }
+  return ids;
+};
 
-}((typeof window !== 'undefined') ? window : this, function (scope, undefined) {
-
-  function ArrayKeys(p) {
-    if (typeof p !== 'object') { p = {}; }
-    this.identifier = p.identifier || 'id';
-    this.idx = [];
+ArrayKeys.prototype.getRecord = function (id) {
+  for (var i = this.idx.length - 1; i >= 0; i--) {
+    if ('' + this.idx[i][this.identifier] === '' + id) {
+      return this.idx[i];
+    }
   }
+  return undefined;
+};
 
-  ArrayKeys.prototype.getIdentifiers = function () {
-    var ids = [];
-    for (var i = this.idx.length - 1; i >= 0; i--) {
-      ids.push(this.idx[i][this.identifier]);
-    }
-    return ids;
-  };
-
-  ArrayKeys.prototype.getRecord = function (id) {
-    for (var i = this.idx.length - 1; i >= 0; i--) {
-      if ('' + this.idx[i][this.identifier] === '' + id) {
-        return this.idx[i];
-      }
-    }
-    return undefined;
-  };
-
-  ArrayKeys.prototype.addRecord = function (record) {
-    if (typeof record !== 'object') {
-      throw new Error('cannot add non-object records.');
-    } else if (!record[this.identifier]) {
-      throw new Error('cannot add a record with no `' + this.identifier +
-                      '` property specified.');
-    }
-    this.removeRecord(record[this.identifier]);
-    this.idx.push(record);
-    return true;
-  };
-
-  ArrayKeys.prototype.removeRecord = function (id) {
-    for (var i = this.idx.length - 1; i >= 0; i--) {
-      if ('' + this.idx[i][this.identifier] === '' + id) {
-        this.idx.splice(i, 1);
-        return true;
-      }
-    }
-    return false;
-  };
-
-  ArrayKeys.prototype.forEachRecord = function (cb) {
-    for (var i = this.idx.length - 1; i >= 0; i--) {
-      cb(this.idx[i]);
-    }
-  };
-
-  ArrayKeys.prototype.getCount = function () {
-    return this.idx.length;
-  };
-
-
-  if ( typeof define === 'function' && define.amd ) {
-    define([], function() {
-      return ArrayKeys;
-    });
+ArrayKeys.prototype.addRecord = function (record) {
+  if (typeof record !== 'object') {
+    throw new Error('cannot add non-object records.');
+  } else if (!record[this.identifier]) {
+    throw new Error('cannot add a record with no `' + this.identifier +
+                    '` property specified.');
   }
+  this.removeRecord(record[this.identifier]);
+  this.idx.push(record);
+  return true;
+};
 
-  scope.ArrayKeys = ArrayKeys;
-  return ArrayKeys;
-}));
+ArrayKeys.prototype.removeRecord = function (id) {
+  for (var i = this.idx.length - 1; i >= 0; i--) {
+    if ('' + this.idx[i][this.identifier] === '' + id) {
+      this.idx.splice(i, 1);
+      return true;
+    }
+  }
+  return false;
+};
+
+ArrayKeys.prototype.forEachRecord = function (cb) {
+  for (var i = this.idx.length - 1; i >= 0; i--) {
+    cb(this.idx[i]);
+  }
+};
+
+ArrayKeys.prototype.getCount = function () {
+  return this.idx.length;
+};
+
+module.exports = ArrayKeys;
