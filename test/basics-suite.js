@@ -63,6 +63,18 @@ function getTests() {
     },
 
     {
+      desc: '# forEachRecord',
+      run: function (env, test) {
+        var processed = 0;
+        env.mod.forEachRecord(function (obj) {
+          processed += 1;
+        }).finally(function (count) {
+          test.assert(count, processed);
+        });
+      }
+    },
+
+    {
       desc: '# getIndexes',
       run: function (env, test) {
         test.assert(env.mod.getIdentifiers(), ['thingy3', 'thingy2', 'thingy1']);
@@ -80,6 +92,88 @@ function getTests() {
       desc: '# getCount (2)',
       run: function (env, test) {
         test.assert(env.mod.getCount(), 2);
+      }
+    },
+
+    {
+      desc: '# addRecord (30000) + getCount',
+      run: function (env, test) {
+        var currentCount = env.mod.getCount();
+        var recordCount = 30000;
+        var start = new Date().getTime();
+        var _pre  = new Date().getTime();
+        for (var i = 0, len = recordCount; i < len; i += 1) {
+          env.mod.addRecord({id: 'test' + i});
+          if ((i % 1000) === 0) {
+            var _post = new Date().getTime();
+            test.write('added ' + i + ' records in ' + (_post - _pre) + 'ms');
+            _pre  = new Date().getTime();
+          }
+        }
+        var end = new Date().getTime();
+        test.write('finished adding ' + recordCount + ' records in ' + (end - start) + 'ms');
+        test.write('getCount: ' + env.mod.getCount());
+        test.assert(env.mod.getCount(), recordCount + currentCount);
+      }
+    },
+
+    {
+      desc: '# removeRecord (20000)',
+      run: function (env, test) {
+        var currentCount = env.mod.getCount();
+        var recordCount = 20000;
+        var start = new Date().getTime();
+        var _pre  = new Date().getTime();
+        for (var i = 0, len = recordCount; i < len; i += 1) {
+          env.mod.removeRecord('test' + (i + 10000));
+          if ((i % 1000) === 0) {
+            var _post = new Date().getTime();
+            test.write('removed ' + i + ' records in ' + (_post - _pre) + 'ms');
+            _pre  = new Date().getTime();
+          }
+        }
+        var end = new Date().getTime();
+        test.write('finished removing ' + recordCount + ' records in ' + (end - start) + 'ms');
+        test.write('getCount: ' + env.mod.getCount());
+        test.assert(env.mod.getCount(), currentCount - recordCount);
+      }
+    },
+
+    {
+      desc: '# addRecord (10000) + getCount',
+      run: function (env, test) {
+        var currentCount = env.mod.getCount();
+        var recordCount = 10000;
+        var start = new Date().getTime();
+        var _pre  = new Date().getTime();
+        for (var i = 0, len = recordCount; i < len; i += 1) {
+          var result = env.mod.addRecord({id: 'test' + i+9999999});
+          if (!result) {
+            test.fail('failed added record: ', {id: 'test' + i});
+          }
+          if ((i % 1000) === 0) {
+            var _post = new Date().getTime();
+            test.write('added ' + i + ' records in ' + (_post - _pre) + 'ms');
+            _pre  = new Date().getTime();
+          }
+        }
+        var end = new Date().getTime();
+        test.write('finished adding ' + recordCount + ' records in ' + (end - start) + 'ms');
+        test.write('getCount: ' + env.mod.getCount());
+        test.assert(env.mod.getCount(), currentCount + recordCount);
+      }
+    },
+
+    {
+      desc: '# forEachRecord',
+      run: function (env, test) {
+        var processed = 0;
+        env.mod.forEachRecord(function (obj) {
+          processed += 1;
+        }).finally(function (count) {
+          test.write('count: ' + count + ' processed: ' + processed);
+          test.assert(count, processed);
+        });
       }
     },
   ];
@@ -103,7 +197,7 @@ define(['require'], function (require) {
   {
     desc: "basic tests (browserify)",
     setup: function (env, test) {
-      var Mod = require('./../dist/array-keys.js');
+      var Mod = require('./../browser/array-keys.js');
       test.assertTypeAnd(Mod, 'function');
       env.mod = new Mod();
       test.assertType(env.mod, 'object');
@@ -113,7 +207,7 @@ define(['require'], function (require) {
   {
     desc: "basic tests (browserify minified)",
     setup: function (env, test) {
-      var Mod = require('./../dist/array-keys.min.js');
+      var Mod = require('./../browser/array-keys.min.js');
       test.assertTypeAnd(Mod, 'function');
       env.mod = new Mod();
       test.assertType(env.mod, 'object');
