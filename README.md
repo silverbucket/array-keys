@@ -36,6 +36,9 @@ ak.addRecord({
 
 ak.forEachRecord(function (record) {
     // this function is called once for each record
+}).finally(function (count) {
+    // function called after the above callback is called for each record
+    // count is the total number of records processed
 });
 
 ak.getIdentifiers(); // returns ['myKey1', 'myKey2']
