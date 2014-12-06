@@ -9,8 +9,8 @@ gulp.task('default', function () {
 
   gulp.src('array-keys.js')
       .pipe(browserify({ standalone: 'ArrayKeys' }))
-      .pipe(gulp.dest('dist/'))
+      .pipe(gulp.dest('browser/'))
       .pipe(uglify())
       .pipe(rename('array-keys.min.js'))
-      .pipe(gulp.dest('dist/'));
+      .pipe(gulp.dest('browser/'));
 });
