@@ -104,7 +104,6 @@ define(['require'], function (require) {
     desc: "basic tests (browserify)",
     setup: function (env, test) {
       var Mod = require('./../dist/array-keys.js');
-console.log('mod: ', Mod);
       test.assertTypeAnd(Mod, 'function');
       env.mod = new Mod();
       test.assertType(env.mod, 'object');
@@ -115,7 +114,6 @@ console.log('mod: ', Mod);
     desc: "basic tests (browserify minified)",
     setup: function (env, test) {
       var Mod = require('./../dist/array-keys.min.js');
-console.log('mod: ', Mod);
       test.assertTypeAnd(Mod, 'function');
       env.mod = new Mod();
       test.assertType(env.mod, 'object');
