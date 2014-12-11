@@ -78,9 +78,8 @@ ArrayKeys.prototype.removeRecord = function (id) {
     return false;
   }
 
-  var i;
   // start looking for the record at the same point as the idx entry
-  for (i = idx; i !== 0; i = i - 1) {
+  for (var i = idx; i !== 0; i = i - 1) {
     if (this.store[i][this.identifier] === id) {
       this.store.splice(i, 1);
       this.idx.splice(idx, 1);
@@ -89,9 +88,9 @@ ArrayKeys.prototype.removeRecord = function (id) {
   }
 
   // if it was not found, start at the end and break at the idx number
-  for (i = this.store.length - 1; i !== idx; i = i - 1) {
-    if (this.store[i][this.identifier] === id) {
-      this.store.splice(i, 1);
+  for (var n = this.store.length - 1; n !== idx; n = n - 1) {
+    if (this.store[n][this.identifier] === id) {
+      this.store.splice(n, 1);
       this.idx.splice(idx, 1);
       return true;
     }
