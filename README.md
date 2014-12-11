@@ -44,9 +44,6 @@ ak.forEachRecord(function (record) {
 ak.getIdentifiers(); // returns ['myKey1', 'myKey2']
 ```
 
-## license
-
-array-keys is licensed under the [LGPL](https://github.com/silverbucket/array-keys/blob/master/LICENSE)
 
 ## credits
 
