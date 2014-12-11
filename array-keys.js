@@ -41,7 +41,7 @@ ArrayKeys.prototype.getRecord = function (id) {
 };
 
 ArrayKeys.prototype.exists = function (id) {
-  if (this.idx.getIndex(id) >= 0) {
+  if (this.getIndex(id) >= 0) {
     return true;
   } else {
     return false;

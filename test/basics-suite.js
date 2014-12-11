@@ -56,6 +56,13 @@ function getTests() {
     },
 
     {
+      desc: '# exists 2',
+      run: function (env, test) {
+        test.assert(env.mod.exists('thingy2'), true);
+      }
+    },
+
+    {
       desc: '# getCount (3)',
       run: function (env, test) {
         test.assert(env.mod.getCount(), 3);
