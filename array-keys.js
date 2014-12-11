@@ -50,7 +50,7 @@ ArrayKeys.prototype.exists = function (id) {
 
 // faster than using indexOf
 ArrayKeys.prototype.getIndex = function (id) {
-  for (i = this.idx.length - 1; i >= 0; i = i - 1) {
+  for (var i = this.idx.length - 1; i >= 0; i = i - 1) {
     if (this.idx[i] === id) {
       return i;
     }
