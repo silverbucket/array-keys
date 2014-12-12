@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 1.2.4
+ *   version 1.2.6
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -79,7 +79,7 @@ ArrayKeys.prototype.removeRecord = function (id) {
   }
 
   // start looking for the record at the same point as the idx entry
-  for (var i = idx; i !== 0; i = i - 1) {
+  for (var i = idx; i >= 0; i = i - 1) {
     if (this.store[i][this.identifier] === id) {
       this.store.splice(i, 1);
       this.idx.splice(idx, 1);
