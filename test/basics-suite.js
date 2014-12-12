@@ -42,6 +42,20 @@ function getTests() {
     },
 
     {
+      desc: "# removeRecord 1",
+      run: function (env, test) {
+        test.assert(env.mod.removeRecord('thingy1'), true);
+      }
+    },
+
+    {
+      desc: '# addRecord 1',
+      run: function (env, test) {
+        test.assert(env.mod.addRecord({id:'thingy1'}), true);
+      }
+    },
+
+    {
       desc: '# addRecord 2',
       run: function (env, test) {
         test.assert(env.mod.addRecord({id:'thingy2'}), true);
