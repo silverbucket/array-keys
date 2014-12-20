@@ -1,12 +1,12 @@
 /*!
  * array-keys
- *   version 1.2.7
+ *   version 1.2.8
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
  *   Nick Jennings <nick@silverbucket.net> copyright 2014
  *
- * array-keys is released under the LGPL (see LICENSE).
+ * array-keys is released under the MIT license (see LICENSE).
  *
  * You don't have to do anything special to choose one license or the other
  * and you don't have to notify anyone which license you are using.
