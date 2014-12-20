@@ -12,8 +12,8 @@ var objName  = 'ArrayKeys';
 gulp.task('default', function () {
 
   var browserified = transform(function (name) {
-      var b = browserify(name);
-      return b.bundle({ standalone: objName });
+      var b = browserify(name, { standalone: objName });
+      return b.bundle();
     });
 
   gulp.src(filename)
