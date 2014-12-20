@@ -106,9 +106,9 @@ ArrayKeys.prototype.forEachRecord = function (cb) {
   setTimeout(function () {
     for (var i = self.store.length - 1; i >= 0; i = i - 1) {
       count += 1;
-      cb(self.store[i]);
+      setTimeout(cb(self.store[i]), 0);
     }
-    finished(count);
+    setTimeout(finished(count), 0);
   }, 0);
 
   return {
