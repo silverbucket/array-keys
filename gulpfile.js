@@ -1,14 +1,23 @@
 var gulp       = require('gulp'),
     fs         = require('fs'),
-    browserify = require('gulp-browserify'),
+    browserify = require('browserify'),
+    transform  = require('vinyl-transform'),
     uglify     = require('gulp-uglify'),
     rename     = require('gulp-rename'),
     pkg        = require('./package.json');
 
+var filename = 'array-keys.js';
+var objName  = 'ArrayKeys';
+
 gulp.task('default', function () {
 
-  gulp.src('array-keys.js')
-      .pipe(browserify({ standalone: 'ArrayKeys' }))
+  var browserified = transform(function (name) {
+      var b = browserify(name);
+      return b.bundle({ standalone: objName });
+    });
+
+  gulp.src(filename)
+      .pipe(browserified)
       .pipe(gulp.dest('browser/'))
       .pipe(uglify())
       .pipe(rename('array-keys.min.js'))
