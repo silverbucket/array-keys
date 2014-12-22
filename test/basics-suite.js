@@ -23,7 +23,21 @@ function getTests() {
     {
       desc: '# addRecord 1',
       run: function (env, test) {
-        test.assert(env.mod.addRecord({id:'thingy1'}), true);
+        env.mod.events.once('add', function addHandler(d) {
+          test.assert({id:'thingy1', foo: 'bar'}, d);
+        });
+        env.mod.addRecord({id:'thingy1', foo: 'bar'});
+        test.assertAnd(env.mod.addRecord({id:'thingy1', foo: 'bar'}), true);
+      }
+    },
+
+    {
+      desc: '# addRecord 1 & listen for update event',
+      run: function (env, test) {
+        env.mod.events.once('update', function addHandler(d) {
+          test.assert({id:'thingy1'}, d);
+        });
+        test.assertAnd(env.mod.addRecord({id:'thingy1'}), true);
       }
     },
 
@@ -44,7 +58,10 @@ function getTests() {
     {
       desc: "# removeRecord 1",
       run: function (env, test) {
-        test.assert(env.mod.removeRecord('thingy1'), true);
+        env.mod.events.once('remove', function addHandler(d) {
+          test.assert('thingy1', d);
+        });
+        test.assertAnd(env.mod.removeRecord('thingy1'), true);
       }
     },
 
@@ -210,7 +227,7 @@ define(['require'], function (require) {
     setup: function (env, test) {
       var Mod = require('./../array-keys');
       test.assertTypeAnd(Mod, 'function');
-      env.mod = new Mod();
+      env.mod = new Mod({ emitEvents: true });
       test.assertType(env.mod, 'object');
     },
     tests: getTests(),
@@ -220,7 +237,7 @@ define(['require'], function (require) {
     setup: function (env, test) {
       var Mod = require('./../browser/array-keys.js');
       test.assertTypeAnd(Mod, 'function');
-      env.mod = new Mod();
+      env.mod = new Mod({ emitEvents: true });
       test.assertType(env.mod, 'object');
     },
     tests: getTests(),
@@ -230,7 +247,7 @@ define(['require'], function (require) {
     setup: function (env, test) {
       var Mod = require('./../browser/array-keys.min.js');
       test.assertTypeAnd(Mod, 'function');
-      env.mod = new Mod();
+      env.mod = new Mod({ emitEvents: true });
       test.assertType(env.mod, 'object');
     },
     tests: getTests(),

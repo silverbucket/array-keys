@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 1.2.9
+ *   version 2.0.0
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -16,25 +16,37 @@
  *
  */
 
+var EventEmitter = require('event-emitter');
+
 function ArrayKeys(p) {
   if (typeof p !== 'object') { p = {}; }
-  this.identifier = p.identifier || 'id';
-  this.store = [];
-  this.idx = []; // array of identifier strings for quick lookup
+  this._identifier = p.identifier || 'id';
+  this._store = [];
+  this._idx = []; // array of identifier strings for quick lookup
+  if (p.emitEvents) {
+    this.emitEvents = true;
+    this.events = new EventEmitter();
+  }
 }
+
+ArrayKeys.prototype.emitEvent = function (event, data, dontEmit) {
+  if ((this.emitEvents) && (! dontEmit)) {
+    this.events.emit(event, data);
+  }
+};
 
 ArrayKeys.prototype.getIdentifiers = function () {
   var ids = [];
-  for (var i = this.store.length - 1; i >= 0; i = i - 1) {
-    ids[ids.length] = this.store[i][this.identifier];
+  for (var i = this._store.length - 1; i >= 0; i = i - 1) {
+    ids[ids.length] = this._store[i][this._identifier];
   }
   return ids;
 };
 
 ArrayKeys.prototype.getRecord = function (id) {
-  for (var i = this.store.length - 1; i >= 0; i = i - 1) {
-    if (this.store[i][this.identifier] === id) {
-      return this.store[i];
+  for (var i = this._store.length - 1; i >= 0; i = i - 1) {
+    if (this._store[i][this._identifier] === id) {
+      return this._store[i];
     }
   }
   return undefined;
@@ -50,8 +62,8 @@ ArrayKeys.prototype.exists = function (id) {
 
 // faster than using indexOf
 ArrayKeys.prototype.getIndex = function (id) {
-  for (var i = this.idx.length - 1; i >= 0; i = i - 1) {
-    if (this.idx[i] === id) {
+  for (var i = this._idx.length - 1; i >= 0; i = i - 1) {
+    if (this._idx[i] === id) {
       return i;
     }
   }
@@ -61,18 +73,25 @@ ArrayKeys.prototype.getIndex = function (id) {
 ArrayKeys.prototype.addRecord = function (record) {
   if (typeof record !== 'object') {
     throw new Error('cannot add non-object records.');
-  } else if (!record[this.identifier]) {
-    throw new Error('cannot add a record with no `' + this.identifier +
+  } else if (!record[this._identifier]) {
+    throw new Error('cannot add a record with no `' + this._identifier +
                     '` property specified.');
   }
 
-  this.removeRecord(record[this.identifier]);
-  this.idx[this.idx.length] = record[this.identifier];
-  this.store[this.store.length] = record;
+  var removed = this.removeRecord(record[this._identifier], true);
+  this._idx[this._idx.length] = record[this._identifier];
+  this._store[this._store.length] = record;
+  setTimeout(function () {
+    if (removed) {
+      setTimeout(this.emitEvent.bind(this, 'update', record), 0);
+    } else {
+      setTimeout(this.emitEvent.bind(this, 'add', record), 0);
+    }
+  }.bind(this), 0);
   return true;
 };
 
-ArrayKeys.prototype.removeRecord = function (id) {
+ArrayKeys.prototype.removeRecord = function (id, dontEmit) {
   var idx  = this.getIndex(id);
   if (idx < 0) {
     return false;
@@ -80,18 +99,20 @@ ArrayKeys.prototype.removeRecord = function (id) {
 
   // start looking for the record at the same point as the idx entry
   for (var i = idx; i >= 0; i = i - 1) {
-    if (this.store[i][this.identifier] === id) {
-      this.store.splice(i, 1);
-      this.idx.splice(idx, 1);
+    if (this._store[i][this._identifier] === id) {
+      this._store.splice(i, 1);
+      this._idx.splice(idx, 1);
+      setTimeout(this.emitEvent.bind(this, 'remove', id, dontEmit), 0);
       return true;
     }
   }
 
   // if it was not found, start at the end and break at the idx number
-  for (var n = this.store.length - 1; n !== idx; n = n - 1) {
-    if (this.store[n][this.identifier] === id) {
-      this.store.splice(n, 1);
-      this.idx.splice(idx, 1);
+  for (var n = this._store.length - 1; n !== idx; n = n - 1) {
+    if (this._store[n][this._identifier] === id) {
+      this._store.splice(n, 1);
+      this._idx.splice(idx, 1);
+      setTimeout(this.emitEvent.bind(this, 'remove', id, dontEmit), 0);
       return true;
     }
   }
@@ -104,9 +125,9 @@ ArrayKeys.prototype.forEachRecord = function (cb) {
   var finished = function () {};
 
   setTimeout(function () {
-    for (var i = self.store.length - 1; i >= 0; i = i - 1) {
+    for (var i = self._store.length - 1; i >= 0; i = i - 1) {
       count += 1;
-      setTimeout(cb(self.store[i]), 0);
+      setTimeout(cb(self._store[i]), 0);
     }
     setTimeout(finished(count), 0);
   }, 0);
@@ -119,7 +140,7 @@ ArrayKeys.prototype.forEachRecord = function (cb) {
 };
 
 ArrayKeys.prototype.getCount = function () {
-  return this.store.length;
+  return this._store.length;
 };
 
 module.exports = ArrayKeys;
