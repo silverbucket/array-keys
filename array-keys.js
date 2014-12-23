@@ -16,7 +16,7 @@
  *
  */
 
-var EventEmitter = require('event-emitter');
+var TinyEmitter = require('tiny-emitter');
 
 function ArrayKeys(p) {
   if (typeof p !== 'object') { p = {}; }
@@ -25,7 +25,7 @@ function ArrayKeys(p) {
   this._idx = []; // array of identifier strings for quick lookup
   if (p.emitEvents) {
     this.emitEvents = true;
-    this.events = new EventEmitter();
+    this.events = new TinyEmitter();
   }
 }
 
