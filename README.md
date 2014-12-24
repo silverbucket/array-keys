@@ -16,34 +16,62 @@ Should run in both node.js and browser environments.
 
 ```javascript
 var ak = new ArrayKeys({
-    identifier: 'key' // defaults to `id`
+  identifier: 'key' // defaults to `id`
 });
 
 ak.getRecord('myInvalidKey'}); // returns undefined
 
 ak.addRecord({
-    key: 'myKey1',
-    value: 'hello world!'
+  key: 'myKey1',
+  value: 'hello world!'
 }); // returns true
 
 ak.getRecord('myKey1'); // returns { key: 'myKey1', value: 'hello world!' }
 
 ak.addRecord({
-    key: 'myKey2',
-    value: 'hello space!'
+  key: 'myKey2',
+  value: 'hello space!'
 }); // returns true
 
 
 ak.forEachRecord(function (record) {
-    // this function is called once for each record
+  // this function is called once for each record
 }).finally(function (count) {
-    // function called after the above callback is called for each record
-    // count is the total number of records processed
+  // function called after the above callback is called for each record
+  // count is the total number of records processed
 });
 
 ak.getIdentifiers(); // returns ['myKey1', 'myKey2']
 ```
 
+
+## events
+
+`ArrayKeys` also optionally supports emitting events. This functionality must be explicity enabled during object instantiation.
+
+### supported events
+* `add`
+* `remove`
+* `update`
+
+### example
+
+```javascript
+var ak = new ArrayKeys({
+  emitEvents: true
+});
+
+ak.events.on('add', function (record) {
+  console.log(record.id); // 'foobar'
+});
+
+ak.addRecord({
+    id: 'foobar',
+    here: [ 'is', 'some' ],
+    data: true
+});
+
+```
 
 ## credits
 
