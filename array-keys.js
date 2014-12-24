@@ -24,13 +24,15 @@ function ArrayKeys(p) {
   this._store = [];
   this._idx = []; // array of identifier strings for quick lookup
   if (p.emitEvents) {
-    this.emitEvents = true;
+    this._emitEvents = true;
     this.events = new TinyEmitter();
+  } else {
+    this._emitEvents = false;
   }
 }
 
 ArrayKeys.prototype.emitEvent = function (event, data, dontEmit) {
-  if ((this.emitEvents) && (! dontEmit)) {
+  if ((this._emitEvents) && (! dontEmit)) {
     this.events.emit(event, data);
   }
 };
