@@ -13,7 +13,7 @@ gulp.task('default', function() {
   var bundleStream = browserify(baseDir + baseFileName + '.js', { standalone: objName }).bundle();
 
   return bundleStream
-         .pipe(source(baseDir + baseFileName + '.js'))
+         .pipe(source(baseFileName + '.js'))
          .pipe(gulp.dest('./browser'))
          .pipe(streamify(uglify()))
          .pipe(rename(baseFileName + '.min.js'))
