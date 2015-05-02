@@ -1,25 +1,21 @@
-var gulp       = require('gulp'),
-    fs         = require('fs'),
+var source     = require('vinyl-source-stream'),
+    streamify  = require('gulp-streamify'),
     browserify = require('browserify'),
-    transform  = require('vinyl-transform'),
     uglify     = require('gulp-uglify'),
     rename     = require('gulp-rename'),
-    pkg        = require('./package.json');
+    gulp       = require('gulp');
 
-var filename = 'array-keys.js';
+var baseDir = './';
+var baseFileName = 'array-keys';
 var objName  = 'ArrayKeys';
 
-gulp.task('default', function () {
+gulp.task('default', function() {
+  var bundleStream = browserify(baseDir + baseFileName + '.js', { standalone: objName }).bundle();
 
-  var browserified = transform(function (name) {
-      var b = browserify(name, { standalone: objName });
-      return b.bundle();
-    });
-
-  gulp.src(filename)
-      .pipe(browserified)
-      .pipe(gulp.dest('browser/'))
-      .pipe(uglify())
-      .pipe(rename('array-keys.min.js'))
-      .pipe(gulp.dest('browser/'));
+  return bundleStream
+         .pipe(source(baseDir + baseFileName + '.js'))
+         .pipe(gulp.dest('./browser'))
+         .pipe(streamify(uglify()))
+         .pipe(rename(baseFileName + '.min.js'))
+         .pipe(gulp.dest('./browser'));
 });
