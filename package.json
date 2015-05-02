@@ -1,6 +1,6 @@
 {
   "name": "array-keys",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "a simple interface to manage large arrays of objects easily",
   "license": "MIT",
   "private": false,
