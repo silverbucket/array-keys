@@ -125,6 +125,17 @@ Returns the number of the position of the record, specified by identifier.
 var position = ak.getIndex('pizza777'); // returns 1
 ```
 
+### forEachRecord
+Calls a callback handler function for each record in the list, asyncronously. 
+```javascript
+ak.forEachRecord(function (record) {
+  // ... do something with record
+}).finally(function (count) {
+  // ... do something at the end of the operation. First param is the number
+  // of items processed.
+})
+```
+
 ### removeRecord
 Removes the record specified by identifier.
 ```javascript
