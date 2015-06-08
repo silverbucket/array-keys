@@ -214,6 +214,15 @@ function getTests() {
         });
       }
     },
+
+    {
+      desc: '# removeAll',
+      run: function (env, test) {
+        test.assertFailAnd(env.mod._store.length, 0);
+        env.mod.removeAll();
+        test.assert(env.mod._store.length, 0);
+      }
+    }
   ];
 }
 
@@ -225,7 +234,7 @@ define(['require'], function (require) {
   return [{
     desc: "basic tests",
     setup: function (env, test) {
-      var Mod = require('./../array-keys');
+      var Mod = require('./../index');
       test.assertTypeAnd(Mod, 'function');
       env.mod = new Mod({ emitEvents: true });
       test.assertType(env.mod, 'object');
