@@ -1,6 +1,6 @@
 {
   "name": "array-keys",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "a simple interface to manage large arrays of objects easily",
   "license": "MIT",
   "private": false,
@@ -10,14 +10,14 @@
     "index",
     "hash"
   ],
-  "main": "./array-keys.js",
+  "main": "./index.js",
   "author": {
     "name": "Nick Jennings",
     "email": "nick@silverbucket.net"
   },
   "devDependencies": {
-    "browserify": "^10.0.0",
-    "gulp": "^3.8.11",
+    "browserify": "^10.2.4",
+    "gulp": "^3.9.0",
     "gulp-rename": "^1.2.0",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.1.0",

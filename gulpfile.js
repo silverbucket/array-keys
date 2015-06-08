@@ -6,16 +6,17 @@ var source     = require('vinyl-source-stream'),
     gulp       = require('gulp');
 
 var baseDir = './';
-var baseFileName = 'array-keys';
+var baseFileName = 'index';
+var browserFileName = 'array-keys';
 var objName  = 'ArrayKeys';
 
 gulp.task('default', function() {
   var bundleStream = browserify(baseDir + baseFileName + '.js', { standalone: objName }).bundle();
 
   return bundleStream
-         .pipe(source(baseFileName + '.js'))
+         .pipe(source(browserFileName + '.js'))
          .pipe(gulp.dest('./browser'))
          .pipe(streamify(uglify()))
-         .pipe(rename(baseFileName + '.min.js'))
+         .pipe(rename(browserFileName + '.min.js'))
          .pipe(gulp.dest('./browser'));
 });
