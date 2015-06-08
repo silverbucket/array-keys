@@ -73,6 +73,90 @@ ak.addRecord({
 
 ```
 
+## API
+
+### constructor
+
+```javascript
+var ak = new ArrayKeys({
+  identifier: 'id',
+  emitEvents: true
+});
+```
+
+### addRecord
+Add a new record.
+```javascript
+ak.addRecord({
+  id: 'helloworld123',
+  foo: 'bar'
+});
+ak.addRecord({
+  id: 'pizza777',
+  blah: [ 1, 2, 3 ]
+});
+```
+
+### getRecord
+Get a record by it's identifier.
+```javascript
+var record = ak.getRecord('helloworld123');
+```
+
+### getIdentifiers
+Get an array of the values of the record identifiers.
+```javascript
+var ids = ak.getIdentifiers(); // 'helloworld123', 'pizza777'
+```
+### exists
+Indicates whether a record exists by returning `true` or `false`.
+```javascript
+if (ak.exists('blahblahblah')) {
+  console.log('yes!');
+} else {
+  console.log('no');
+}
+// returns false, 'no'
+```
+
+### getIndex
+Returns the number of the position of the record, specified by identifier.
+```javascript
+var position = ak.getIndex('pizza777'); // returns 1
+```
+
+### removeRecord
+Removes the record specified by identifier.
+```javascript
+ak.removeRecord('helloworld123');
+```
+
+### removeAll
+Removes all records.
+```javascript
+ak.removeAll();
+```
+
+### events
+
+#### update
+```javascript
+ak.events.on('update', function (record){
+  ...
+});
+```
+#### add
+```javascript
+ak.events.on('add', function (record){
+  ...
+});
+```
+#### remove
+```javascript
+ak.events.on('remove', function (record){
+  ...
+});
+```
 ## credits
 
 Project developed and maintained by [Nick Jennings](http://github.com/silverbucket)
