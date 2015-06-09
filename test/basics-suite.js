@@ -222,7 +222,28 @@ function getTests() {
         env.mod.removeAll();
         test.assert(env.mod._store.length, 0);
       }
-    }
+    },
+    
+    {
+      desc: '# (again) addRecord 1',
+      run: function (env, test) {
+        test.assert(env.mod.addRecord({id:'thingy1'}), true);
+      }
+    },
+
+    {
+      desc: '# (again) addRecord 2',
+      run: function (env, test) {
+        test.assert(env.mod.addRecord({id:'thingy2'}), true);
+      }
+    },
+
+    {
+      desc: '# (again) addRecord 3',
+      run: function (env, test) {
+        test.assert(env.mod.addRecord({id:'thingy3'}), true);
+      }
+    },
   ];
 }
 

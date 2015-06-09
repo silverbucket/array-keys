@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 2.1.1
+ *   version 2.1.2
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -110,7 +110,7 @@ ArrayKeys.prototype.removeRecord = function (id, dontEmit) {
   }
 
   // if it was not found, start at the end and break at the idx number
-  for (var n = this._store.length - 1; n !== idx; n = n - 1) {
+  for (var n = this._store.length - 1; n >= idx; n = n - 1) {
     if ((this._store[i]) && (this._store[n][this._identifier] === id)) {
       this._store.splice(n, 1);
       this._idx.splice(idx, 1);
