@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 2.1.2
+ *   version 2.1.3
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
@@ -129,9 +129,9 @@ ArrayKeys.prototype.forEachRecord = function (cb) {
   setTimeout(function () {
     for (var i = self._store.length - 1; i >= 0; i = i - 1) {
       count += 1;
-      setTimeout(cb(self._store[i]), 0);
+      setTimeout(cb.bind(null, self._store[i]), 0);
     }
-    setTimeout(finished(count), 0);
+    setTimeout(finished.bind(null, count), 0);
   }, 0);
 
   return {
