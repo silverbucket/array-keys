@@ -126,9 +126,9 @@ var position = ak.getIndex('pizza777'); // returns 1
 ```
 
 ### forEachRecord
-Calls a callback handler function for each record in the list, asyncronously. 
+Calls a callback handler function for each record in the list, asyncronously.
 ```javascript
-ak.forEachRecord(function (record) {
+ak.forEachRecord(function (record, index) {
   // ... do something with record
 }).finally(function (count) {
   // ... do something at the end of the operation. First param is the number
