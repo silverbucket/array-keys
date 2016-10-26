@@ -273,25 +273,25 @@ define(['require'], function (require) {
       test.assertType(env.mod, 'object');
     },
     tests: getTests(),
-  }
-  // {
-  //   desc: "basic tests (browserify)",
-  //   setup: function (env, test) {
-  //     var Mod = require('./../browser/array-keys.js');
-  //     test.assertTypeAnd(Mod, 'function');
-  //     env.mod = new Mod({ emitEvents: true });
-  //     test.assertType(env.mod, 'object');
-  //   },
-  //   tests: getTests(),
-  // },
-  // {
-  //   desc: "basic tests (browserify minified)",
-  //   setup: function (env, test) {
-  //     var Mod = require('./../browser/array-keys.min.js');
-  //     test.assertTypeAnd(Mod, 'function');
-  //     env.mod = new Mod({ emitEvents: true });
-  //     test.assertType(env.mod, 'object');
-  //   },
-  //   tests: getTests(),
-  ];
+  },
+  {
+    desc: "basic tests (browserify)",
+    setup: function (env, test) {
+      var Mod = require('./../browser/array-keys.js');
+      test.assertTypeAnd(Mod, 'function');
+      env.mod = new Mod({ emitEvents: true });
+      test.assertType(env.mod, 'object');
+    },
+    tests: getTests(),
+  },
+  {
+    desc: "basic tests (browserify minified)",
+    setup: function (env, test) {
+      var Mod = require('./../browser/array-keys.min.js');
+      test.assertTypeAnd(Mod, 'function');
+      env.mod = new Mod({ emitEvents: true });
+      test.assertType(env.mod, 'object');
+    },
+    tests: getTests(),
+  }];
 });
