@@ -148,8 +148,7 @@ ArrayKeys.prototype.mapRecords = function(cb) {
   var map = [];
   for (var i = self._store.length - 1; i >= 0; i = i - 1) {
     count += 1;
-    console.log(cb);
-    setTimeout(map.push(cb(self._store[i], i)), 0);
+    map.push(cb(self._store[i], i));
   }
   return map;
 };
