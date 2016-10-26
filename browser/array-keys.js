@@ -142,6 +142,18 @@ ArrayKeys.prototype.forEachRecord = function (cb) {
   };
 };
 
+ArrayKeys.prototype.mapRecords = function(cb) {
+  var count = 0;
+  var self = this;
+  var map = [];
+  for (var i = self._store.length - 1; i >= 0; i = i - 1) {
+    count += 1;
+    console.log(cb);
+    setTimeout(map.push(cb(self._store[i], i)), 0);
+  }
+  return map;
+};
+
 ArrayKeys.prototype.getCount = function () {
   return this._store.length;
 };
