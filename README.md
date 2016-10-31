@@ -136,6 +136,14 @@ ak.forEachRecord(function (record, index) {
 })
 ```
 
+### mapRecords
+Calls a callback transform function for each record in the list.  
+Your original list is not mutated. Returns an array.
+```javascript
+ak.mapRecords(function(record, index) {
+  return record.id + '-' + index;
+});
+```
 ### removeRecord
 Removes the record specified by identifier.
 ```javascript

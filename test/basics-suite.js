@@ -112,6 +112,17 @@ function getTests() {
       }
     },
 
+     {
+      desc: '# mapRecords',
+      run: function (env, test) {
+        var processed = 0;
+        var map = env.mod.mapRecords(function (obj) {
+            return obj.id;
+        });
+        test.assert(map, env.mod.getIdentifiers());
+      }
+    },
+
     {
       desc: '# getIndexes',
       run: function (env, test) {
@@ -243,7 +254,8 @@ function getTests() {
       run: function (env, test) {
         test.assert(env.mod.addRecord({id:'thingy3'}), true);
       }
-    },
+    }
+
   ];
 }
 
