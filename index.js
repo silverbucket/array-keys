@@ -1,6 +1,6 @@
 /*!
  * array-keys
- *   version 2.3.0
+ *   version 2.3.1
  *   http://github.com/silverbucket/array-keys
  *
  * Developed and Maintained by:
