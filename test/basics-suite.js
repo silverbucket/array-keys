@@ -56,14 +56,28 @@ function getTests() {
     },
 
     {
-      desc: "# removeRecord 1",
+      desc: '# INDEX BUG',
       run: function (env, test) {
+        test.assertAnd(env.mod.addRecord({id:'thingy1'}), true);
+        test.assertAnd(env.mod.addRecord({id:'thingy2'}), true);
+        env.mod._store.reverse();
         env.mod.events.once('remove', function addHandler(d) {
           test.assert('thingy1', d);
         });
         test.assertAnd(env.mod.removeRecord('thingy1'), true);
       }
     },
+
+    {
+      desc: "# removeRecord 2",
+      run: function (env, test) {
+        env.mod.events.once('remove', function addHandler(d) {
+          test.assert('thingy2', d);
+        });
+        test.assertAnd(env.mod.removeRecord('thingy2'), true);
+      }
+    },
+
 
     {
       desc: '# addRecord 1',
@@ -266,6 +280,7 @@ if (typeof define !== 'function') {
 define(['require'], function (require) {
   return [{
     desc: "basic tests",
+    abortOnFail: true,
     setup: function (env, test) {
       var Mod = require('./../index');
       test.assertTypeAnd(Mod, 'function');
@@ -276,6 +291,7 @@ define(['require'], function (require) {
   },
   {
     desc: "basic tests (browserify)",
+    abortOnFail: true,
     setup: function (env, test) {
       var Mod = require('./../browser/array-keys.js');
       test.assertTypeAnd(Mod, 'function');
@@ -286,6 +302,7 @@ define(['require'], function (require) {
   },
   {
     desc: "basic tests (browserify minified)",
+    abortOnFail: true,
     setup: function (env, test) {
       var Mod = require('./../browser/array-keys.min.js');
       test.assertTypeAnd(Mod, 'function');

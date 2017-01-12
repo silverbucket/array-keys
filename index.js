@@ -111,7 +111,7 @@ ArrayKeys.prototype.removeRecord = function (id, dontEmit) {
 
   // if it was not found, start at the end and break at the idx number
   for (var n = this._store.length - 1; n >= idx; n = n - 1) {
-    if ((this._store[i]) && (this._store[n][this._identifier] === id)) {
+    if ((this._store[n]) && (this._store[n][this._identifier] === id)) {
       this._store.splice(n, 1);
       this._idx.splice(idx, 1);
       setTimeout(this.emitEvent.bind(this, 'remove', id, dontEmit), 0);
