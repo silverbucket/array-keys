@@ -1,5 +1,7 @@
 # array-keys
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/silverbucket/array-keys.svg)](https://greenkeeper.io/)
+
 [![Build Status](http://img.shields.io/travis/silverbucket/array-keys.svg?style=flat)](http://travis-ci.org/silverbucket/array-keys)
 [![Code Climate](http://img.shields.io/codeclimate/github/silverbucket/array-keys.svg?style=flat)](https://codeclimate.com/github/silverbucket/array-keys)
 [![license](https://img.shields.io/npm/l/array-keys.svg?style=flat)](https://npmjs.org/package/array-keys)
