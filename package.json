@@ -16,7 +16,7 @@
     "email": "nick@silverbucket.net"
   },
   "devDependencies": {
-    "browserify": "^14.3.0",
+    "browserify": "^16.2.3",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-streamify": "^1.0.2",
