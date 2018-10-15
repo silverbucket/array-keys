@@ -1,6 +1,8 @@
 # array-keys
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/silverbucket/array-keys.svg)](https://greenkeeper.io/)
+# UNMAINTAINED
+**NOTICE: With the advent of es6 Map, this module is no longer needed or maintained.**
+
 
 [![Build Status](http://img.shields.io/travis/silverbucket/array-keys.svg?style=flat)](http://travis-ci.org/silverbucket/array-keys)
 [![Code Climate](http://img.shields.io/codeclimate/github/silverbucket/array-keys.svg?style=flat)](https://codeclimate.com/github/silverbucket/array-keys)
