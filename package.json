@@ -22,7 +22,7 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^2.0.0",
     "jaribu": "^2.2.1",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
     "test": "node_modules/.bin/jaribu"
